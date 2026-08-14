@@ -1,6 +1,6 @@
 {
   "name": "@maastrich/vitest-plugin-cache",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": false,
   "description": "A Vitest plugin to cache test results based on import trees",
   "keywords": [
