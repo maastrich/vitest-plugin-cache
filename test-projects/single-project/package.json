@@ -4,12 +4,10 @@
   "type": "module",
   "scripts": {
     "test": "vitest",
-    "test:run": "vitest run",
-    "test:ui": "vitest --ui"
+    "test:run": "vitest run"
   },
   "dependencies": {
     "@maastrich/vitest-plugin-cache": "workspace:*",
-    "@raegen/vite-plugin-vitest-cache": "^0.3.7",
     "vite": "catalog:",
     "vitest": "catalog:"
   }
