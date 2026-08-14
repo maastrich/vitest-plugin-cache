@@ -58,9 +58,16 @@ describe("ApiClient - Integration Tests", () => {
 
       // Verify all requests were logged
       const logMessages = logs.map((log) => log.message);
-      expect(logMessages.some((msg) => msg.includes("GET /status"))).toBe(true);
-      expect(logMessages.some((msg) => msg.includes("POST /events"))).toBe(true);
-      expect(logMessages.some((msg) => msg.includes("GET /metrics"))).toBe(true);
+      // Logged messages are `<METHOD> <baseUrl><endpoint>`.
+      expect(logMessages.some((msg) => msg.startsWith("GET") && msg.endsWith("/status"))).toBe(
+        true,
+      );
+      expect(logMessages.some((msg) => msg.startsWith("POST") && msg.endsWith("/events"))).toBe(
+        true,
+      );
+      expect(logMessages.some((msg) => msg.startsWith("GET") && msg.endsWith("/metrics"))).toBe(
+        true,
+      );
     });
   });
 

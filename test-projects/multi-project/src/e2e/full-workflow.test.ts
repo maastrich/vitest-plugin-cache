@@ -47,9 +47,16 @@ describe("Full Application Workflow - E2E Tests", () => {
       expect(logs.length).toBeGreaterThanOrEqual(4);
 
       const logMessages = logs.map((log) => log.message);
-      expect(logMessages.some((msg) => msg.includes("POST /auth/register"))).toBe(true);
-      expect(logMessages.some((msg) => msg.includes("POST /auth/login"))).toBe(true);
-      expect(logMessages.some((msg) => msg.includes("GET /user/profile"))).toBe(true);
+      // Logged messages are `<METHOD> <baseUrl><endpoint>`.
+      expect(
+        logMessages.some((msg) => msg.startsWith("POST") && msg.endsWith("/auth/register")),
+      ).toBe(true);
+      expect(logMessages.some((msg) => msg.startsWith("POST") && msg.endsWith("/auth/login"))).toBe(
+        true,
+      );
+      expect(
+        logMessages.some((msg) => msg.startsWith("GET") && msg.endsWith("/user/profile")),
+      ).toBe(true);
     });
 
     it("should handle product catalog browsing and ordering", async () => {
