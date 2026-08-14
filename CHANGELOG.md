@@ -1,5 +1,11 @@
 # @maastrich/vitest-plugin-cache
 
+## 0.1.1
+
+### Patch Changes
+
+- 1d9fef1: Publish a real version range for `@vitest/runner` instead of the pnpm `catalog:` protocol, which shipped verbatim in 0.1.0 and broke installs outside the workspace.
+
 ## 0.1.0
 
 ### Minor Changes
