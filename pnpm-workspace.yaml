@@ -1,0 +1,24 @@
+packages:
+  - .
+  - test-projects/*
+
+onlyBuiltDependencies:
+  - esbuild
+catalog:
+  vite: npm:@voidzero-dev/vite-plus-core@latest
+  # Pin to the version reported by `vp toolchain` so the project and
+  # `vp test` share one Vitest copy.
+  vitest: 4.1.10
+  "@vitest/runner": 4.1.10
+  vite-plus: latest
+overrides:
+  vite: "catalog:"
+  vitest: "catalog:"
+  "@vitest/runner": "catalog:"
+peerDependencyRules:
+  allowAny:
+    - vite
+    - vitest
+  allowedVersions:
+    vite: "*"
+    vitest: "*"

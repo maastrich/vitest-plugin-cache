@@ -1,0 +1,16 @@
+{
+  "name": "single-project-test",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:ui": "vitest --ui"
+  },
+  "dependencies": {
+    "@maastrich/vitest-plugin-cache": "workspace:*",
+    "@raegen/vite-plugin-vitest-cache": "^0.3.7",
+    "vite": "catalog:",
+    "vitest": "catalog:"
+  }
+}

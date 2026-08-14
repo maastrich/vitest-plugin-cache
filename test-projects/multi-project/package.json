@@ -1,0 +1,18 @@
+{
+  "name": "multi-project-test",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:ui": "vitest --ui",
+    "test:unit": "vitest run --project unit",
+    "test:integration": "vitest run --project integration",
+    "test:e2e": "vitest run --project e2e"
+  },
+  "dependencies": {
+    "@maastrich/vitest-plugin-cache": "workspace:*",
+    "vite": "catalog:",
+    "vitest": "catalog:"
+  }
+}
