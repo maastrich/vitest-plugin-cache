@@ -63,7 +63,7 @@
   "dependencies": {
     "@maastrich/hashup": "^0.9.1",
     "@ungap/structured-clone": "^1.3.0",
-    "@vitest/runner": "catalog:"
+    "@vitest/runner": "~4.1.0"
   },
   "devDependencies": {
     "@changesets/cli": "^3.0.0",
