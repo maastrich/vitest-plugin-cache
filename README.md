@@ -106,19 +106,31 @@ cache({
 
 ### Multiple projects
 
-Register the plugin at the root; inline projects inherit it:
+**The plugin must be registered on each project, not at the root.** Vitest does
+not pass root-level `plugins` (or root `test.pool`) down to projects, so a
+root-only registration silently caches nothing.
+
+For inline projects:
 
 ```ts
 export default defineConfig({
-  plugins: [cache()],
   test: {
     projects: [
-      { name: "unit", testMatch: ["**/unit/**/*.test.ts"] },
-      { name: "integration", testMatch: ["**/integration/**/*.test.ts"] },
+      {
+        plugins: [cache()],
+        test: { name: "unit", include: ["**/unit/**/*.test.ts"] },
+      },
+      {
+        plugins: [cache()],
+        test: { name: "integration", include: ["**/integration/**/*.test.ts"] },
+      },
     ],
   },
 });
 ```
+
+For projects defined as separate config files (`projects: ["packages/*"]`), add
+`cache()` to each package's own `vitest.config.ts`.
 
 One cache store and one hash cache are shared per Vitest instance, so a module
 hashed for `unit` is not re-hashed for `integration`. Entries are keyed by
@@ -141,7 +153,7 @@ Both `cache()` and `cachePool()` take the same options object.
 | ---------- | ---------------------- | --------------- | ----------------------------------------------------------------------------------------- |
 | `cacheDir` | `string`               | `.vitest-cache` | Where results are stored, resolved against Vitest's `root`.                               |
 | `pool`     | `"threads" \| "forks"` | `"forks"`       | Built-in pool used to actually run cache misses.                                          |
-| `extras`   | `string[]`             | `[]`            | Extra files folded into **every** file's hash. Any change to them invalidates everything. |
+| `extras`   | `string[]`             | —               | Extra files folded into **every** file's hash. Any change to them invalidates everything. |
 
 ## How it works
 
@@ -172,8 +184,8 @@ graph is dropped and rebuilt — hashing is cheap (file reads, all memoized).
   whole file.
 - **Impure tests are not tracked.** The hash covers source files only. Tests
   that depend on env vars, network state, the clock, or a database will happily
-  replay a stale pass — put anything file-shaped into `extras`, and disable the
-  plugin where purity isn't guaranteed.
+  replay a stale pass — put anything file-shaped into `extras`, and leave the
+  plugin out where purity isn't guaranteed (`plugins: [pure ? cache() : null]`).
 - Replayed durations are reported as `0ms`, so aggregate timings on a cached
   run are not comparable to a cold one.
 - The replay path uses `Vitest._reportFileTask`, an internal API. That's why
