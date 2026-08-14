@@ -68,8 +68,10 @@ export default defineConfig({
 });
 ```
 
-That's it. Run your tests twice and the second run prints every unchanged file
-with a `⛁` marker and a `0ms` duration — that's a replayed cache hit.
+That's it. Run your tests twice — the second run should be near-instant. With
+`--reporter=verbose`, replayed tests are prefixed with `⛁` and reported at
+`0ms`; the default reporter collapses passing test names, so there the only
+visible sign is the duration.
 
 ### As a pool
 
